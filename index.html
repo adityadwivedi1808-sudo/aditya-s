@@ -1,0 +1,1824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SmartCook | Intelligent Pressure Cooker</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#050b12;
+    color:#ffffff;
+}
+
+/* ================= NAVBAR ================= */
+
+nav{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:75px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 7%;
+
+    background:rgba(5,11,18,0.85);
+    backdrop-filter:blur(15px);
+
+    border-bottom:1px solid rgba(255,255,255,0.08);
+
+    z-index:1000;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    font-size:22px;
+    font-weight:bold;
+}
+
+.logo-icon{
+    width:38px;
+    height:38px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:10px;
+
+    background:linear-gradient(135deg,#36e0a0,#35b8ff);
+
+    color:#031018;
+    font-size:20px;
+}
+
+.logo span{
+    color:#36e0a0;
+}
+
+.nav-links{
+    display:flex;
+    gap:32px;
+}
+
+.nav-links a{
+    color:#a9bbc7;
+    text-decoration:none;
+    font-size:14px;
+
+    transition:0.3s;
+}
+
+.nav-links a:hover{
+    color:#36e0a0;
+}
+
+.nav-button{
+    padding:11px 20px;
+
+    border:1px solid #36e0a0;
+    border-radius:8px;
+
+    color:#36e0a0;
+    text-decoration:none;
+
+    font-size:13px;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    min-height:100vh;
+
+    display:flex;
+    align-items:center;
+
+    padding:120px 7% 70px;
+
+    position:relative;
+    overflow:hidden;
+}
+
+.hero::before{
+    content:"";
+
+    position:absolute;
+
+    width:600px;
+    height:600px;
+
+    background:#36e0a0;
+
+    filter:blur(180px);
+    opacity:0.08;
+
+    top:-200px;
+    left:-150px;
+}
+
+.hero-content{
+    width:55%;
+
+    position:relative;
+    z-index:2;
+}
+
+.tag{
+    display:inline-block;
+
+    padding:8px 14px;
+
+    border-radius:30px;
+
+    border:1px solid rgba(54,224,160,0.3);
+
+    color:#36e0a0;
+
+    font-size:12px;
+
+    margin-bottom:25px;
+
+    background:rgba(54,224,160,0.05);
+}
+
+.hero h1{
+    font-size:65px;
+    line-height:1.05;
+
+    margin-bottom:25px;
+}
+
+.hero h1 span{
+    color:#36e0a0;
+}
+
+.hero p{
+    color:#8fa7b5;
+
+    font-size:17px;
+
+    line-height:1.8;
+
+    max-width:600px;
+
+    margin-bottom:35px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:15px;
+}
+
+.primary{
+    padding:15px 25px;
+
+    background:#36e0a0;
+
+    color:#031018;
+
+    border-radius:9px;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+    transition:0.3s;
+}
+
+.primary:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 30px rgba(54,224,160,0.25);
+}
+
+.secondary{
+    padding:15px 25px;
+
+    border:1px solid #294452;
+
+    color:#ffffff;
+
+    border-radius:9px;
+
+    text-decoration:none;
+
+    transition:0.3s;
+}
+
+.secondary:hover{
+    border-color:#36e0a0;
+}
+
+/* ================= COOKER ================= */
+
+.hero-device{
+    width:45%;
+
+    display:flex;
+    justify-content:center;
+
+    position:relative;
+}
+
+.cooker{
+    width:390px;
+    height:390px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(circle at 35% 30%,#304a59,#111c25 55%,#070d12);
+
+    border:2px solid #294553;
+
+    box-shadow:
+        0 0 70px rgba(54,224,160,0.12),
+        inset 0 0 50px rgba(0,0,0,0.7);
+
+    position:relative;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.cooker-inner{
+    width:250px;
+    height:250px;
+
+    border-radius:50%;
+
+    border:8px solid #263d49;
+
+    background:#071018;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    position:relative;
+}
+
+.cooker-screen{
+    width:145px;
+    height:90px;
+
+    border-radius:12px;
+
+    background:#061017;
+
+    border:1px solid #36e0a0;
+
+    box-shadow:0 0 25px rgba(54,224,160,0.15);
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+.screen-title{
+    color:#718894;
+    font-size:9px;
+    margin-bottom:5px;
+}
+
+.screen-value{
+    font-size:25px;
+    color:#36e0a0;
+    font-weight:bold;
+}
+
+.screen-status{
+    font-size:9px;
+    color:#36e0a0;
+    margin-top:4px;
+}
+
+.sensor-dot{
+    position:absolute;
+
+    width:15px;
+    height:15px;
+
+    border-radius:50%;
+
+    background:#36e0a0;
+
+    box-shadow:0 0 20px #36e0a0;
+}
+
+.dot1{top:30px;left:190px;}
+.dot2{right:40px;top:170px;}
+.dot3{bottom:50px;left:100px;}
+.dot4{left:45px;top:170px;}
+
+/* ================= SECTION ================= */
+
+section{
+    padding:100px 7%;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:55px;
+}
+
+.section-title small{
+    color:#36e0a0;
+    text-transform:uppercase;
+    letter-spacing:3px;
+    font-size:11px;
+}
+
+.section-title h2{
+    font-size:42px;
+    margin-top:12px;
+}
+
+.section-title p{
+    color:#8fa7b5;
+    margin:15px auto;
+    max-width:650px;
+    line-height:1.7;
+}
+
+/* ================= STATS ================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.stat-card{
+    padding:25px;
+
+    background:#0d1923;
+
+    border:1px solid #1d3542;
+
+    border-radius:15px;
+
+    transition:0.3s;
+}
+
+.stat-card:hover{
+    transform:translateY(-5px);
+    border-color:#36e0a0;
+}
+
+.stat-icon{
+    font-size:25px;
+    margin-bottom:15px;
+}
+
+.stat-card h3{
+    font-size:30px;
+    margin-bottom:7px;
+}
+
+.stat-card p{
+    color:#7f96a4;
+    font-size:12px;
+}
+
+/* ================= LIVE DASHBOARD ================= */
+
+.dashboard{
+    background:#09141d;
+
+    border:1px solid #1d3542;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    box-shadow:0 20px 70px rgba(0,0,0,0.3);
+}
+
+.dashboard-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:25px;
+}
+
+.dashboard-top h3{
+    font-size:18px;
+}
+
+.live{
+    color:#36e0a0;
+    font-size:11px;
+}
+
+.sensor-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+
+    margin-bottom:25px;
+}
+
+.sensor-card{
+    background:#0e1d28;
+
+    border:1px solid #1e3847;
+
+    padding:20px;
+
+    border-radius:12px;
+}
+
+.sensor-card small{
+    color:#718894;
+}
+
+.sensor-value{
+    font-size:27px;
+    font-weight:bold;
+
+    margin-top:8px;
+}
+
+.normal{
+    color:#36e0a0;
+}
+
+.warning{
+    color:#ffca62;
+}
+
+.danger{
+    color:#ff5c70;
+}
+
+.graph{
+    height:300px;
+
+    background:#071018;
+
+    border:1px solid #19303d;
+
+    border-radius:12px;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+canvas{
+    width:100%;
+    height:100%;
+}
+
+/* ================= FEATURES ================= */
+
+.features{
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:18px;
+}
+
+.feature{
+    padding:30px;
+
+    border:1px solid #1d3542;
+
+    background:linear-gradient(145deg,#0e1c26,#09131b);
+
+    border-radius:15px;
+
+    transition:0.3s;
+}
+
+.feature:hover{
+    transform:translateY(-7px);
+
+    border-color:#36e0a0;
+}
+
+.feature-icon{
+    width:50px;
+    height:50px;
+
+    border-radius:12px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:rgba(54,224,160,0.1);
+
+    color:#36e0a0;
+
+    font-size:22px;
+
+    margin-bottom:20px;
+}
+
+.feature h3{
+    margin-bottom:12px;
+}
+
+.feature p{
+    color:#8198a5;
+    line-height:1.7;
+    font-size:13px;
+}
+
+/* ================= HOW IT WORKS ================= */
+
+.process{
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:15px;
+}
+
+.process-card{
+    text-align:center;
+
+    padding:25px;
+
+    position:relative;
+}
+
+.process-number{
+    width:45px;
+    height:45px;
+
+    border-radius:50%;
+
+    background:#102532;
+
+    border:1px solid #36e0a0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    margin:0 auto 20px;
+
+    color:#36e0a0;
+    font-weight:bold;
+}
+
+.process-card h3{
+    margin-bottom:10px;
+}
+
+.process-card p{
+    color:#7e96a4;
+    font-size:12px;
+    line-height:1.6;
+}
+
+/* ================= SIMULATOR ================= */
+
+.simulator{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:20px;
+}
+
+.control-panel,
+.decision-panel{
+    background:#0d1a24;
+
+    border:1px solid #203746;
+
+    padding:25px;
+
+    border-radius:15px;
+}
+
+.control-panel h3,
+.decision-panel h3{
+    margin-bottom:20px;
+}
+
+.buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+button{
+    padding:13px;
+
+    border-radius:8px;
+
+    border:1px solid #315465;
+
+    background:#102633;
+
+    color:white;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+button:hover{
+    border-color:#36e0a0;
+    transform:translateY(-2px);
+}
+
+button.hazard-btn{
+    border-color:#733d49;
+}
+
+.decision{
+    padding:25px;
+
+    background:#071018;
+
+    border-radius:10px;
+
+    text-align:center;
+
+    border:1px solid #1e3847;
+}
+
+.decision-status{
+    font-size:28px;
+
+    font-weight:bold;
+
+    margin:10px 0;
+}
+
+/* ================= CTA ================= */
+
+.cta{
+    text-align:center;
+
+    padding:100px 20px;
+
+    background:
+        radial-gradient(circle at center,
+        rgba(54,224,160,0.08),
+        transparent 60%);
+}
+
+.cta h2{
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+.cta p{
+    color:#8fa7b5;
+
+    max-width:600px;
+
+    margin:0 auto 30px;
+
+    line-height:1.7;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    border-top:1px solid #1b303b;
+
+    padding:30px 7%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    color:#647b88;
+
+    font-size:12px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:900px){
+
+    .hero{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .hero-content{
+        width:100%;
+    }
+
+    .hero-device{
+        width:100%;
+        margin-top:60px;
+    }
+
+    .hero-buttons{
+        justify-content:center;
+    }
+
+    .stats,
+    .sensor-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .features{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .process{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .simulator{
+        grid-template-columns:1fr;
+    }
+
+    .nav-links{
+        display:none;
+    }
+}
+
+@media(max-width:550px){
+
+    .hero h1{
+        font-size:42px;
+    }
+
+    .cooker{
+        width:290px;
+        height:290px;
+    }
+
+    .cooker-inner{
+        width:190px;
+        height:190px;
+    }
+
+    .stats,
+    .sensor-grid,
+    .features,
+    .process{
+        grid-template-columns:1fr;
+    }
+
+    .buttons{
+        grid-template-columns:1fr;
+    }
+
+    .cta h2{
+        font-size:34px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav>
+
+    <div class="logo">
+
+        <div class="logo-icon">♨</div>
+
+        Smart<span>Cook</span>
+
+    </div>
+
+    <div class="nav-links">
+
+        <a href="#home">Home</a>
+
+        <a href="#technology">Technology</a>
+
+        <a href="#dashboard">Live Monitor</a>
+
+        <a href="#features">Features</a>
+
+        <a href="#demo">Demo</a>
+
+    </div>
+
+    <a href="#demo" class="nav-button">
+        Try Demo
+    </a>
+
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <div class="tag">
+            ● NEXT-GENERATION COOKING SAFETY
+        </div>
+
+        <h1>
+            Cooking that thinks
+            <span>before you do.</span>
+        </h1>
+
+        <p>
+            SmartCook combines multiple sensors, intelligent safety
+            decisions and electronic interlocking to create a safer,
+            smarter pressure cooking experience.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#dashboard" class="primary">
+                Explore Technology →
+            </a>
+
+            <a href="#demo" class="secondary">
+                Live Demo
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-device">
+
+        <div class="cooker">
+
+            <div class="sensor-dot dot1"></div>
+            <div class="sensor-dot dot2"></div>
+            <div class="sensor-dot dot3"></div>
+            <div class="sensor-dot dot4"></div>
+
+            <div class="cooker-inner">
+
+                <div class="cooker-screen">
+
+                    <div class="screen-title">
+                        SYSTEM STATUS
+                    </div>
+
+                    <div class="screen-value" id="heroStatus">
+                        SAFE
+                    </div>
+
+                    <div class="screen-status">
+                        ● ALL SYSTEMS NORMAL
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= STATS ================= -->
+
+<section id="technology">
+
+    <div class="section-title">
+
+        <small>Safety Intelligence</small>
+
+        <h2>One system. Multiple layers of protection.</h2>
+
+        <p>
+            Every important cooking condition is continuously monitored
+            so the system can react when something goes wrong.
+        </p>
+
+    </div>
+
+
+    <div class="stats">
+
+        <div class="stat-card">
+
+            <div class="stat-icon">◉</div>
+
+            <h3>3+</h3>
+
+            <p>Independent Sensor Channels</p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">⚡</div>
+
+            <h3>24/7</h3>
+
+            <p>Continuous Safety Monitoring</p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">🛡</div>
+
+            <h3>Fail</h3>
+
+            <p>Safe System Response</p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">✓</div>
+
+            <h3>100%</h3>
+
+            <p>Controller Heartbeat Tracking</p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<section id="dashboard">
+
+    <div class="section-title">
+
+        <small>Live Intelligence</small>
+
+        <h2>Real-time safety monitoring</h2>
+
+        <p>
+            Watch the simulated sensor environment change in real time.
+        </p>
+
+    </div>
+
+
+    <div class="dashboard">
+
+        <div class="dashboard-top">
+
+            <h3>SmartCook Control Center</h3>
+
+            <div class="live">
+                ● LIVE SIMULATION
+            </div>
+
+        </div>
+
+
+        <div class="sensor-grid">
+
+            <div class="sensor-card">
+
+                <small>PRESSURE</small>
+
+                <div class="sensor-value normal" id="pressure">
+                    42.0 kPa
+                </div>
+
+            </div>
+
+
+            <div class="sensor-card">
+
+                <small>TEMPERATURE</small>
+
+                <div class="sensor-value normal" id="temperature">
+                    78.0 °C
+                </div>
+
+            </div>
+
+
+            <div class="sensor-card">
+
+                <small>LID LOCK</small>
+
+                <div class="sensor-value normal" id="lid">
+                    LOCKED
+                </div>
+
+            </div>
+
+
+            <div class="sensor-card">
+
+                <small>HEARTBEAT</small>
+
+                <div class="sensor-value normal" id="heartbeat">
+                    100%
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="graph">
+
+            <canvas id="chart"></canvas>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FEATURES ================= -->
+
+<section id="features">
+
+    <div class="section-title">
+
+        <small>Core Technology</small>
+
+        <h2>Built around intelligent safety</h2>
+
+        <p>
+            Instead of relying on a single measurement, SmartCook
+            combines multiple signals before making a safety decision.
+        </p>
+
+    </div>
+
+
+    <div class="features">
+
+        <div class="feature">
+
+            <div class="feature-icon">◉</div>
+
+            <h3>Pressure Monitoring</h3>
+
+            <p>
+                Continuously monitors cooker pressure and detects
+                abnormal pressure conditions.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">♨</div>
+
+            <h3>Temperature Intelligence</h3>
+
+            <p>
+                Tracks temperature changes and identifies potentially
+                unsafe thermal conditions.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">🔒</div>
+
+            <h3>Smart Lid Detection</h3>
+
+            <p>
+                The system verifies the lid-lock state before allowing
+                normal operation.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">♥</div>
+
+            <h3>Heartbeat Watchdog</h3>
+
+            <p>
+                A controller heartbeat is monitored to detect system
+                failures.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">⚡</div>
+
+            <h3>Electronic Interlock</h3>
+
+            <p>
+                Safety decisions can control an electronic interlock
+                that blocks unsafe operation.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">🛡</div>
+
+            <h3>Fail-Safe Mode</h3>
+
+            <p>
+                When critical conditions are detected, the system
+                transitions to a shutdown state.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PROCESS ================= -->
+
+<section>
+
+    <div class="section-title">
+
+        <small>How It Works</small>
+
+        <h2>From sensor to safety decision</h2>
+
+    </div>
+
+
+    <div class="process">
+
+        <div class="process-card">
+
+            <div class="process-number">01</div>
+
+            <h3>Sense</h3>
+
+            <p>
+                Sensors collect pressure, temperature and lid-lock data.
+            </p>
+
+        </div>
+
+
+        <div class="process-card">
+
+            <div class="process-number">02</div>
+
+            <h3>Analyze</h3>
+
+            <p>
+                The controller evaluates multiple sensor conditions.
+            </p>
+
+        </div>
+
+
+        <div class="process-card">
+
+            <div class="process-number">03</div>
+
+            <h3>Decide</h3>
+
+            <p>
+                The consensus engine determines whether the system is safe.
+            </p>
+
+        </div>
+
+
+        <div class="process-card">
+
+            <div class="process-number">04</div>
+
+            <h3>Protect</h3>
+
+            <p>
+                Unsafe conditions trigger the fail-safe interlock response.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= DEMO ================= -->
+
+<section id="demo">
+
+    <div class="section-title">
+
+        <small>Interactive Prototype</small>
+
+        <h2>Test the safety intelligence</h2>
+
+        <p>
+            Simulate different conditions and see how the system responds.
+        </p>
+
+    </div>
+
+
+    <div class="simulator">
+
+        <div class="control-panel">
+
+            <h3>Simulation Controls</h3>
+
+            <div class="buttons">
+
+                <button onclick="normalMode()">
+                    Normal Operation
+                </button>
+
+                <button class="hazard-btn"
+                        onclick="hazardMode()">
+                    Simulate Hazard
+                </button>
+
+                <button onclick="lidMode()">
+                    Unlock Lid
+                </button>
+
+                <button class="hazard-btn"
+                        onclick="heartbeatMode()">
+                    Kill Heartbeat
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="decision-panel">
+
+            <h3>Safety Decision</h3>
+
+            <div class="decision">
+
+                <div>
+                    CURRENT SYSTEM STATE
+                </div>
+
+                <div class="decision-status normal"
+                     id="decision">
+                    SAFE
+                </div>
+
+                <div id="stove">
+                    ⚡ STOVE ENABLED
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CTA ================= -->
+
+<section class="cta">
+
+    <h2>
+        The future of cooking is intelligent.
+    </h2>
+
+    <p>
+        SmartCook demonstrates how connected sensors and intelligent
+        decision-making can transform everyday appliance safety.
+    </p>
+
+    <a href="#dashboard" class="primary">
+        Explore Live System →
+    </a>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div>
+        © 2026 SmartCook Prototype
+    </div>
+
+    <div>
+        Safety Intelligence • IoT • Smart Appliances
+    </div>
+
+</footer>
+
+
+<script>
+
+/* ================= SENSOR DATA ================= */
+
+let pressure = 42;
+let temperature = 78;
+
+let heartbeat = 100;
+
+let lidLocked = true;
+
+let mode = "normal";
+
+let points = [];
+
+const canvas = document.getElementById("chart");
+
+const ctx = canvas.getContext("2d");
+
+
+/* ================= MODE FUNCTIONS ================= */
+
+function normalMode(){
+
+    mode = "normal";
+
+    lidLocked = true;
+
+    heartbeat = 100;
+
+    document.getElementById("decision").innerText = "SAFE";
+
+    document.getElementById("heroStatus").innerText = "SAFE";
+}
+
+
+function hazardMode(){
+
+    mode = "hazard";
+
+    lidLocked = true;
+
+    heartbeat = 100;
+}
+
+
+function lidMode(){
+
+    mode = "lid";
+
+    lidLocked = false;
+
+    heartbeat = 100;
+}
+
+
+function heartbeatMode(){
+
+    mode = "heartbeat";
+
+    lidLocked = true;
+
+    heartbeat = 0;
+}
+
+
+/* ================= SENSOR UPDATE ================= */
+
+function updateSensors(){
+
+    let now = Date.now();
+
+    if(mode === "normal"){
+
+        let targetP =
+            46 +
+            18 * Math.sin(now / 1500) +
+            7 * Math.sin(now / 430);
+
+        let targetT =
+            82 +
+            12 * Math.sin(now / 1900 + 1) +
+            4 * Math.sin(now / 520);
+
+        pressure += (targetP - pressure) * 0.16;
+
+        temperature +=
+            (targetT - temperature) * 0.16;
+
+        heartbeat = 100;
+    }
+
+
+    if(mode === "hazard"){
+
+        let targetP =
+            88 +
+            22 * Math.sin(now / 900) +
+            9 * Math.sin(now / 260);
+
+        let targetT =
+            112 +
+            18 * Math.sin(now / 1050 + 1) +
+            7 * Math.sin(now / 310);
+
+        pressure +=
+            (targetP - pressure) * 0.18;
+
+        temperature +=
+            (targetT - temperature) * 0.18;
+
+        heartbeat = 100;
+    }
+
+
+    if(mode === "lid"){
+
+        let targetP =
+            48 +
+            16 * Math.sin(now / 1400) +
+            6 * Math.sin(now / 360);
+
+        let targetT =
+            80 +
+            10 * Math.sin(now / 1700) +
+            5 * Math.sin(now / 470);
+
+        pressure +=
+            (targetP - pressure) * 0.16;
+
+        temperature +=
+            (targetT - temperature) * 0.16;
+
+        heartbeat = 100;
+    }
+
+
+    if(mode === "heartbeat"){
+
+        let targetP =
+            48 +
+            18 * Math.sin(now / 1300) +
+            7 * Math.sin(now / 330);
+
+        let targetT =
+            82 +
+            11 * Math.sin(now / 1700) +
+            4 * Math.sin(now / 450);
+
+        pressure +=
+            (targetP - pressure) * 0.16;
+
+        temperature +=
+            (targetT - temperature) * 0.16;
+
+        heartbeat = 0;
+    }
+
+
+    updateDisplay();
+
+    drawGraph();
+
+}
+
+
+/* ================= DISPLAY ================= */
+
+function updateDisplay(){
+
+    document.getElementById("pressure").innerText =
+        pressure.toFixed(1) + " kPa";
+
+
+    document.getElementById("temperature").innerText =
+        temperature.toFixed(1) + " °C";
+
+
+    document.getElementById("heartbeat").innerText =
+        heartbeat + "%";
+
+
+    document.getElementById("lid").innerText =
+        lidLocked ? "LOCKED" : "OPEN";
+
+
+    let hazard =
+        pressure > 80 &&
+        temperature > 105 &&
+        lidLocked &&
+        heartbeat > 50;
+
+
+    let safe =
+        pressure <= 80 &&
+        temperature <= 105 &&
+        lidLocked &&
+        heartbeat > 50;
+
+
+    let decision =
+        document.getElementById("decision");
+
+    let hero =
+        document.getElementById("heroStatus");
+
+    let stove =
+        document.getElementById("stove");
+
+
+    if(hazard){
+
+        decision.innerText =
+            "HAZARD";
+
+        decision.className =
+            "decision-status danger";
+
+        hero.innerText =
+            "ALERT";
+
+        stove.innerText =
+            "⛔ STOVE SHUTDOWN";
+    }
+
+    else if(safe){
+
+        decision.innerText =
+            "SAFE";
+
+        decision.className =
+            "decision-status normal";
+
+        hero.innerText =
+            "SAFE";
+
+        stove.innerText =
+            "⚡ STOVE ENABLED";
+    }
+
+    else{
+
+        decision.innerText =
+            "FAIL-SAFE";
+
+        decision.className =
+            "decision-status warning";
+
+        hero.innerText =
+            "BLOCKED";
+
+        stove.innerText =
+            "⛔ STOVE SHUTDOWN";
+    }
+
+
+    let p =
+        document.getElementById("pressure");
+
+    let t =
+        document.getElementById("temperature");
+
+
+    p.className =
+        "sensor-value " +
+        (pressure > 80 ? "danger" : "normal");
+
+
+    t.className =
+        "sensor-value " +
+        (temperature > 105 ? "danger" : "normal");
+}
+
+
+/* ================= GRAPH ================= */
+
+function resizeCanvas(){
+
+    canvas.width =
+        canvas.parentElement.clientWidth;
+
+    canvas.height =
+        canvas.parentElement.clientHeight;
+}
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+resizeCanvas();
+
+
+function drawGraph(){
+
+    points.push({
+        p: pressure,
+        t: temperature
+    });
+
+
+    if(points.length > 100){
+
+        points.shift();
+
+    }
+
+
+    let w = canvas.width;
+
+    let h = canvas.height;
+
+
+    ctx.clearRect(
+        0,
+        0,
+        w,
+        h
+    );
+
+
+    /* Grid */
+
+    ctx.strokeStyle =
+        "#18303d";
+
+    ctx.lineWidth = 1;
+
+
+    for(let i=0;i<6;i++){
+
+        let y =
+            30 +
+            i * (h - 60) / 5;
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            30,
+            y
+        );
+
+        ctx.lineTo(
+            w - 20,
+            y
+        );
+
+        ctx.stroke();
+    }
+
+
+    /* Labels */
+
+    ctx.fillStyle =
+        "#718894";
+
+    ctx.font =
+        "11px Arial";
+
+    ctx.fillText(
+        "LIVE SENSOR TELEMETRY",
+        35,
+        20
+    );
+
+
+    ctx.fillText(
+        "PRESSURE",
+        40,
+        h - 15
+    );
+
+
+    ctx.fillText(
+        "TEMPERATURE",
+        130,
+        h - 15
+    );
+
+
+    function drawLine(
+        key,
+        scale
+    ){
+
+        ctx.beginPath();
+
+
+        points.forEach(
+            (point,index)=>{
+
+                let x =
+                    30 +
+                    index *
+                    (w - 50) /
+                    Math.max(
+                        points.length - 1,
+                        1
+                    );
+
+
+                let y =
+                    h -
+                    30 -
+                    (point[key] /
+                    scale) *
+                    (h - 70);
+
+
+                if(index === 0){
+
+                    ctx.moveTo(
+                        x,
+                        y
+                    );
+
+                }
+                else{
+
+                    ctx.lineTo(
+                        x,
+                        y
+                    );
+                }
+
+            }
+        );
+
+
+        ctx.strokeStyle =
+            key === "p"
+            ? "#36b8ff"
+            : "#ffca62";
+
+        ctx.lineWidth = 2;
+
+        ctx.stroke();
+    }
+
+
+    drawLine(
+        "p",
+        140
+    );
+
+
+    drawLine(
+        "t",
+        160
+    );
+
+}
+
+
+/* ================= START ================= */
+
+setInterval(
+    updateSensors,
+    100
+);
+
+normalMode();
+
+updateSensors();
+
+</script>
+
+</body>
+</html>
